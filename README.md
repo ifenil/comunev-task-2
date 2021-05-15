@@ -3,6 +3,19 @@
 ## Task- Details
 ##### Fetch data from https://randomuser.me/api/?results=100&inc=name (it returns JSON) and render it in the FlatList.
 
+> Note for installing in android
+#### First Clone the repo
+```
+git clone https://github.com/ifenil/comunev-task-2.git
+```
+#### install dependencies
+```
+npm install
+```
+#### Run 
+```
+react-native run-android
+```
 
 
 ## ---------------------------Demo---------------------------------
