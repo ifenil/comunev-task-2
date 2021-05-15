@@ -5,7 +5,8 @@ import {
   Text,
   View,
   SPACING,
-} from 'react-native';
+  StyleSheet,
+  Image} from 'react-native';
 
 export default class App extends Component {
   constructor(props) {
@@ -14,10 +15,22 @@ export default class App extends Component {
     this.state = {
       dataSource: [],
       isLoading: true,
+      isVisible : true,  
     };
   }
 
+  Hide_Splash_Screen=()=>{  
+    this.setState({   
+      isVisible : false   
+    });  
+  }  
+
   componentDidMount() {
+    var that = this;  
+    setTimeout(function(){  
+      that.Hide_Splash_Screen();  
+    }, 5000);  
+
     const url = 'https://randomuser.me/api/?results=100&inc=name';
 
     fetch(url)
@@ -58,12 +71,19 @@ export default class App extends Component {
   };
 
   render() {
-    return this.state.isLoading ? (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size="large" color="#330066" animating />
-      </View>
-    ) : (
-      <View style={{ flex: 1, backgroundColor: '#eee' }}>        
+    let Splash_Screen = (  
+      <View style={styles.SplashScreen_RootView}>  
+          <View style={styles.SplashScreen_ChildView}>  
+                <Image source={{uri:'https://i.ibb.co/ZhBKvsW/noobicon.png'}}  
+             style={{width:'100%', height: '100%', resizeMode: 'contain'}} />  
+         </View>  
+      </View> ) 
+
+    return(
+      <View style={{ flex: 1, backgroundColor: '#eee' }}>     
+        {  
+          (this.state.isVisible === true) ? Splash_Screen : null  
+        }     
         <FlatList
           data={this.state.dataSource}
           renderItem={this.renderItem}
@@ -77,3 +97,25 @@ export default class App extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create(  
+  { 
+     
+      SplashScreen_RootView:  
+      {  
+          justifyContent: 'center',  
+          flex:1,  
+          margin: 10,  
+          position: 'absolute',  
+          width: '100%',  
+          height: '100%',  
+        },  
+     
+      SplashScreen_ChildView:  
+      {  
+          justifyContent: 'center',  
+          alignItems: 'center',  
+          backgroundColor: '#00BCD4',  
+          flex:1,  
+      },  
+  });  
